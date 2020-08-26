@@ -22,7 +22,7 @@ function objToSql(ob) {
   return arr.toString();
 };
 
-var orm = {
+const orm = {
   all: function(tableInput, cb) {
     var queryString = "SELECT * FROM " + tableInput + ";";
     connection.query(queryString, function(err, result) {
