@@ -1,51 +1,49 @@
-$(function() {
-
-    $(".create-form").on("submit", function(event) {
+ $(function() { 
+     $(".create-form").on("submit", function(event) {
         event.preventDefault();
+var id = $(this).data("id");
+var newBurger = $(this).data("newburger");
 
-        var newBurger = {
-            burger_name: $("#newburger").val().trim(),
-            devoured: 0
-        };
+var newBurgerState = {
+    burger: newBurger
+};
 
-        
-        $.ajax("/api/burgers", {
-            type: "POST",
-            data: newBurger
-        }).then(function() {
-            console.log("Added new burger");
-            location.reload();
-        });
-    });
+$.ajax("/api/burgers/" + id, {
+    type: "PUT",
+    data: newBurgerState
+  }).then(
+    function() {
+      // Reload the page to get the updated list
+      location.reload();
+    }
+  );
+});
 
-    $(".eatburger").on("click", function(event) {
-        event.preventDefault();
+    // Send the POST request.
+    $.ajax("/api/burgers", {
+      type: "POST",
+      data: newBurger
+    }).then(
+      function() {
+        console.log("created new burger");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
 
-        var id = $(this).data("id");
-        var devouredState = {
-            devoured: 1
-        };
+  $(".delete-burger").on("click", function(event) {
+    var id = $(this).data("id");
 
-       
-        $.ajax("/api/burgers/" + id, {
-            type: "PUT",
-            data: devouredState
-        }).then(function() {
-            console.log("Burger devoured");
-            location.reload();
-        });
-    });
+    // Send the DELETE request.
+    $.ajax("/api/burgers/" + id, {
+      type: "DELETE"
+    }).then(
+      function() {
+        console.log("deleted burger", id);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
 
-    $(".trashburger").on("click", function(event) {
-        event.preventDefault();
-
-        var id = $(this).data("id");
-
-        
-        $.ajax({
-            type: "DELETE",
-            url: "/api/burgers/" + id
-        }).then(location.reload());
-    });
-
-})
