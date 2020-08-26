@@ -22,11 +22,10 @@
           <div class="panel-body">
                     <ul>
                         {{#each burgers}}
-                            {{#unless devoured}}
+                            {{#unless isDevoured}}
                                 <span><strong> {{this.burger_name}} </strong></span>
                                 <button type="button" class="eatburger btn btn-warning" id ="eatbutton" data-id="{{this.id}}" data-newDevoured="{{devoured}}"><span class="fa fa-cutlery"></span></button>
                                 <hr>
-                                
                             {{/unless}}
                         {{/each}}
                     </ul>  
