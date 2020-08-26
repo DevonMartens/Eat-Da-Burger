@@ -1,5 +1,5 @@
 $(function() {
-  $(".change-devoured").on("submit", function(event) {
+  $(".change-devoured").on("click", function(event) {
     var id = $(this).data("id");
     var newDevoured = $(this).data("newdevoured");
 
@@ -31,7 +31,7 @@ $(function() {
 
     var newBurger = {
       burger_name: $("#bu").val().trim(),
-      isDevoured: $("[name=devoured]:checked").val().trim()
+      devoured: $("[name=devoured]:checked").val().trim()
     };
 
     console.log(newBurger);
@@ -42,6 +42,19 @@ $(function() {
     }).then(
       function() {
         console.log("created new burger");
+        location.reload();
+      }
+    );
+  });
+
+  $(".delete-burger").on("click", function(event) {
+    var id = $(this).data("id");
+    $.ajax("/api/burgers/" + id, {
+      type: "DELETE"
+    }).then(
+      function() {
+        console.log("deleted burger", id);
+        // Reload the page to get the updated list
         location.reload();
       }
     );
