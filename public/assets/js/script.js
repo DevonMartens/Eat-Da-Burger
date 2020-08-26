@@ -2,7 +2,7 @@
      $(".create-form").on("submit", function(event) {
         event.preventDefault();
 var id = $(this).data("id");
-var newBurger = $(this).data("newburger");
+var newBurger = $(this).data("name");
 
 var newBurgerState = {
     burger: newBurger
